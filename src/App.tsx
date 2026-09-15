@@ -353,9 +353,6 @@ export default function App() {
                 transition={{ delay: idx * 0.1 }}
                 className="min-w-[280px] bg-[#0d0d0d] p-6 rounded-[28px] border border-white/5 hover:border-emerald-500/30 transition-all group relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
-                  <TrendingUp className="w-16 h-16 text-emerald-500" />
-                </div>
                 <div className="flex justify-between items-start mb-6 relative z-10">
                   <span className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.15em] bg-emerald-500/10 px-2 py-1 rounded-md">
                     {update.category}
