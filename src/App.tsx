@@ -194,6 +194,21 @@ const CREDIT_100_ITEMS: ContentItem[] = [
   }
 ];
 
+function EndCircleButton({ onClick, ariaLabel = "View more" }: { onClick?: () => void; ariaLabel?: string }) {
+  return (
+    <div className="min-w-[60px] flex items-center justify-center shrink-0">
+      <button 
+        type="button"
+        onClick={onClick}
+        aria-label={ariaLabel}
+        className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-emerald-400 hover:border-emerald-400 transition-all active:scale-95"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('My Feed');
   const [activeCategory, setActiveCategory] = useState('My Feed');
@@ -222,7 +237,7 @@ export default function App() {
         </div>
 
         {/* Category Scroll */}
-        <CarouselContainer showArrows={false} snap={false} className="gap-6 px-6 pb-3">
+        <CarouselContainer snap={false} className="gap-6 px-6 pb-3">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -313,8 +328,7 @@ export default function App() {
                 </div>
               </motion.div>
             ))}
-            {/* Peek card */}
-            <div className="min-w-[40px]" />
+            <EndCircleButton ariaLabel="View more featured stories" />
           </CarouselContainer>
         </section>
 
@@ -372,11 +386,7 @@ export default function App() {
                 </div>
               </motion.div>
             ))}
-            <div className="min-w-[60px] flex items-center justify-center">
-               <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-500 hover:text-emerald-400 hover:border-emerald-400 transition-all">
-                 <ChevronRight className="w-6 h-6" />
-               </button>
-            </div>
+            <EndCircleButton ariaLabel="Explore all daily briefings" />
           </CarouselContainer>
         </section>
 
@@ -398,7 +408,7 @@ export default function App() {
                 <PodcastCard podcast={podcast} />
               </div>
             ))}
-            <div className="min-w-[40px]" />
+            <EndCircleButton ariaLabel="Listen to all audio insights" />
           </CarouselContainer>
         </section>
 
@@ -420,7 +430,7 @@ export default function App() {
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
-                <div className="min-w-[40px]" />
+                <EndCircleButton ariaLabel="View all Market 100" />
               </CarouselContainer>
             </div>
 
@@ -439,7 +449,7 @@ export default function App() {
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
-                <div className="min-w-[40px]" />
+                <EndCircleButton ariaLabel="View all Credit 100" />
               </CarouselContainer>
             </div>
 
@@ -458,7 +468,7 @@ export default function App() {
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
-                <div className="min-w-[40px]" />
+                <EndCircleButton ariaLabel="View all Sales & Trading" />
               </CarouselContainer>
             </div>
           </div>
