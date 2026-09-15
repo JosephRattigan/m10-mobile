@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ContentItem, MorningUpdate } from './types';
+import { CarouselContainer } from './components/CarouselContainer';
 
 const MORNING_UPDATES: MorningUpdate[] = [
   {
@@ -221,7 +222,7 @@ export default function App() {
         </div>
 
         {/* Category Scroll */}
-        <div className="flex gap-6 overflow-x-auto px-6 pb-3 no-scrollbar mask-fade-right">
+        <CarouselContainer showArrows={false} snap={false} className="gap-6 px-6 pb-3">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
@@ -239,7 +240,7 @@ export default function App() {
               )}
             </button>
           ))}
-        </div>
+        </CarouselContainer>
       </header>
 
       {/* Main Content */}
@@ -261,7 +262,7 @@ export default function App() {
 
         {/* Hero Carousel - Dribbble Style */}
         <section className="mt-6 mb-10 overflow-hidden">
-          <div className="flex gap-4 overflow-x-auto px-6 pb-4 horizontal-snap no-scrollbar mask-fade-right">
+          <CarouselContainer className="px-6">
             {HERO_ITEMS.map((item, idx) => (
               <motion.div 
                 key={item.id}
@@ -273,9 +274,10 @@ export default function App() {
                 <img 
                   src={item.image} 
                   alt={item.title} 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  draggable={false}
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 pointer-events-none select-none"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
                 
                 <div className="absolute top-6 left-6">
                   <div className="bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full">
@@ -313,7 +315,7 @@ export default function App() {
             ))}
             {/* Peek card */}
             <div className="min-w-[40px]" />
-          </div>
+          </CarouselContainer>
         </section>
 
         {/* Morning Updates - Horizontal Scroll with Peek */}
@@ -328,7 +330,7 @@ export default function App() {
             </button>
           </div>
           
-          <div className="flex gap-4 overflow-x-auto px-6 pb-4 horizontal-snap no-scrollbar mask-fade-right">
+          <CarouselContainer className="px-6">
             {MORNING_UPDATES.map((update, idx) => (
               <motion.div 
                 key={update.id}
@@ -337,7 +339,7 @@ export default function App() {
                 transition={{ delay: idx * 0.1 }}
                 className="min-w-[280px] bg-[#0d0d0d] p-6 rounded-[28px] border border-white/5 hover:border-emerald-500/30 transition-all group relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
                   <TrendingUp className="w-16 h-16 text-emerald-500" />
                 </div>
                 <div className="flex justify-between items-start mb-6 relative z-10">
@@ -359,7 +361,7 @@ export default function App() {
                   <div className="flex -space-x-2">
                     {[1, 2, 3].map(i => (
                       <div key={i} className="w-6 h-6 rounded-full border-2 border-[#0d0d0d] bg-gray-800 overflow-hidden">
-                        <img src={`https://i.pravatar.cc/100?u=${update.id}${i}`} alt="analyst" />
+                        <img src={`https://i.pravatar.cc/100?u=${update.id}${i}`} alt="analyst" draggable={false} className="select-none pointer-events-none" />
                       </div>
                     ))}
                     <div className="w-6 h-6 rounded-full border-2 border-[#0d0d0d] bg-emerald-500 flex items-center justify-center">
@@ -375,7 +377,7 @@ export default function App() {
                  <ChevronRight className="w-6 h-6" />
                </button>
             </div>
-          </div>
+          </CarouselContainer>
         </section>
 
         {/* Audio Insights - Horizontal Scroll */}
@@ -390,14 +392,14 @@ export default function App() {
             </button>
           </div>
           
-          <div className="flex gap-4 overflow-x-auto px-6 pb-4 horizontal-snap no-scrollbar mask-fade-right">
-            {PODCAST_ITEMS.map((podcast, idx) => (
+          <CarouselContainer className="px-6">
+            {PODCAST_ITEMS.map((podcast) => (
               <div key={podcast.id} className="min-w-[300px]">
                 <PodcastCard podcast={podcast} />
               </div>
             ))}
             <div className="min-w-[40px]" />
-          </div>
+          </CarouselContainer>
         </section>
 
         {/* Horizontal Category Sections */}
@@ -412,14 +414,14 @@ export default function App() {
                 </div>
                 <button className="text-[10px] font-bold text-gray-600 uppercase tracking-widest border-b border-gray-900 pb-0.5">View All</button>
               </div>
-              <div className="flex gap-4 overflow-x-auto pb-4 horizontal-snap no-scrollbar mask-fade-right">
+              <CarouselContainer>
                 {MARKET_100_ITEMS.map((item) => (
                   <div key={item.id} className="min-w-[240px]">
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
                 <div className="min-w-[40px]" />
-              </div>
+              </CarouselContainer>
             </div>
 
             {/* Credit 100 Section */}
@@ -431,14 +433,14 @@ export default function App() {
                 </div>
                 <button className="text-[10px] font-bold text-gray-600 uppercase tracking-widest border-b border-gray-900 pb-0.5">View All</button>
               </div>
-              <div className="flex gap-4 overflow-x-auto pb-4 horizontal-snap no-scrollbar mask-fade-right">
+              <CarouselContainer>
                 {CREDIT_100_ITEMS.map((item) => (
                   <div key={item.id} className="min-w-[240px]">
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
                 <div className="min-w-[40px]" />
-              </div>
+              </CarouselContainer>
             </div>
 
             {/* Sales & Trading Section */}
@@ -450,14 +452,14 @@ export default function App() {
                 </div>
                 <button className="text-[10px] font-bold text-gray-600 uppercase tracking-widest border-b border-gray-900 pb-0.5">View All</button>
               </div>
-              <div className="flex gap-4 overflow-x-auto pb-4 horizontal-snap no-scrollbar mask-fade-right">
+              <CarouselContainer>
                 {SALES_TRADING_ITEMS.map((item) => (
                   <div key={item.id} className="min-w-[240px]">
                     <ContentCard item={item} horizontal />
                   </div>
                 ))}
                 <div className="min-w-[40px]" />
-              </div>
+              </CarouselContainer>
             </div>
           </div>
         </section>
@@ -554,7 +556,7 @@ function PodcastCard({ podcast }: { podcast: ContentItem }) {
       className="relative bg-[#0d0d0d] rounded-[32px] overflow-hidden border border-white/5 shadow-xl h-full"
     >
       <div className="relative h-48">
-        <img src={podcast.imageUrl} alt="Podcast" className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700" />
+        <img src={podcast.imageUrl} alt="Podcast" draggable={false} className="w-full h-full object-cover opacity-40 grayscale hover:grayscale-0 transition-all duration-700 pointer-events-none select-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.button 
